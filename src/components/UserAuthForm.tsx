@@ -6,6 +6,7 @@ import { Button } from "./ui/Button";
 import { signIn } from "next-auth/react";
 import { Icons } from "./Icons";
 import { useToast } from "../hooks/use-toast"
+import { ToastAction } from "./ui/Toast";
 
 const UserAuthForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -15,14 +16,14 @@ const UserAuthForm = () => {
     setIsLoading(true);
 
     try {
-      throw new Error()
       await signIn("google");
     } catch (error) {
       //toast notification
       toast({
         title:'Error logging in',
-        description:'There was an error with google',
-        variant: 'destructive'
+        description:'There was an error logging in with google',
+        variant: 'destructive',
+        action: <ToastAction altText="Try again">Try again</ToastAction>
       })
     } finally {
       setIsLoading(false);
