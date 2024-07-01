@@ -1,10 +1,26 @@
 "use client"
 import { useState } from "react"
-// import { Input } from "@/components/ui/Input"
-
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import {useRouter} from 'next/navigation'
+import {useMutation} from '@tanstack/react-query'
+import axios from "axios"
 
 const Page = () => {
 const [input, setInput] = useState<string>('')
+const router = useRouter();
+
+const {} = useMutation({
+    mutationFn: async () => {
+        const payload = {
+            
+        }
+        const {data} = await axios.post('/api/Event', payload)
+    }
+})
+
+
+
 
 return(
  <div className="container flex items-center h-full max-w-3xl mx-auto">
@@ -22,8 +38,16 @@ return(
                 <p className="absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-zinc-400">
                     r/
                 </p>
-            <input />
+            <Input value={input} onChange={(e) => setInput(e.target.value)} className="pl-6" />
             </div>
+        </div>
+        <div className="flex justify-end gap-4">
+            <Button variant='subtle' onClick={(e) => router.back()}>
+                Cancel
+            </Button>
+            <Button>
+                Create Event
+            </Button>
         </div>
     </div>
 </div>
