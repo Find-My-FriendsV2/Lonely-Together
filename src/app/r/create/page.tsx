@@ -6,17 +6,18 @@ import { Input } from "@/components/ui/Input"
 import {useRouter} from 'next/navigation'
 import {useMutation} from '@tanstack/react-query'
 import axios from "axios"
-
+import{ CreateEventPayload } from'@/lib/validators/event'
 const Page = () => {
 const [input, setInput] = useState<string>('')
 const router = useRouter();
 
-const {} = useMutation({
-    mutationFn: async () => {
-        const payload = {
-            age:25
+const {mutate: createEvent, isLoading} = useMutation({
+    mutationFn: async() => {
+        const payload: CreateEventPayload = {
+            name:input,
         }
         const {data} = await axios.post('/api/Event', payload)
+        return data as string
     }
 })
 
@@ -46,7 +47,10 @@ return(
             <Button variant='subtle' onClick={(e) => router.back()}>
                 Cancel
             </Button>
-            <Button>
+            <Button isLoading={isLoading} 
+            disabled={input.length===0}
+            onClick={() => createEvent()}
+            >
                 Create Event
             </Button>
         </div>

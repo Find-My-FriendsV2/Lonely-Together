@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
 import ClientQueryProvider from "@/components/ClientQueryProvider";
+import Providers from "@/components/Providers";
 
 export const metadata = {
   title: "Lonely-Together",
@@ -28,6 +29,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen pt-12 bg-slate-50 antialiased">
+  
         <ClientQueryProvider>
           
         {/* @ts-expect-error Server Component */}
@@ -39,7 +41,9 @@ export default function RootLayout({
         </div>
 
         <Toaster />
+       
         </ClientQueryProvider>
+        
       </body>
     </html>
   );
