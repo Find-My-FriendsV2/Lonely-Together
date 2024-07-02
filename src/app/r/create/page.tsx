@@ -14,7 +14,6 @@ const router = useRouter();
 const {} = useMutation({
     mutationFn: async () => {
         const payload = {
-            age:25
         }
         const {data} = await axios.post('/api/Event', payload)
     }
