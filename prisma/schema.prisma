@@ -56,7 +56,7 @@ model User {
   Post        Post[]
   Comment     Comment[]
   CommentVote CommentVote[]
-  joinevent   JoinEvent[]
+  eventRegister   EventRegister[]
   // vote        Vote[]
 }
 
@@ -69,13 +69,13 @@ model Event {
 
   creatorId   String?
   Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
-  joinevent   JoinEvent[]
+  eventRegister   EventRegister[]
 
   @@index([name])
   @@index([creatorId])
 }
 
-model JoinEvent {
+model EventRegister {
   user User @relation(fields: [userId], references: [id])
   userId String
   event Event @relation(fields: [eventId], references: [id])
@@ -98,7 +98,7 @@ model Post {
   author User @relation(fields: [authorId], references: [id])
   authorId String
 
-  // comments Comment[]
+  comments Comment[]
   // votes Vote[]
 
   @@index([authorId])
@@ -111,7 +111,7 @@ model Comment {
   createdAt DateTime @default(now())
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  // post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 
   replyToId String?
@@ -128,11 +128,27 @@ model Comment {
 
 
 
-enum VoteType {
- UP
- DOWN
+// enum VoteType {
+//  UP
+//  DOWN
+// }
+
+
+model CommentVote {
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  comment Comment @relation(fields: [commentId], references: [id])
+  commentId String
+  // type VoteType
+
+  @@id ([userId, commentId])
+  @@index([commentId])
 }
 
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //change to ratings later
 
 
@@ -147,16 +163,59 @@ enum VoteType {
 //   @@index([postId])
 // }
 
-model CommentVote {
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  comment Comment @relation(fields: [commentId], references: [id])
-  commentId String
-  type VoteType
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  @@id ([userId, commentId])
-  @@index([commentId])
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // This is your Prisma schema file,
@@ -214,7 +273,7 @@ model CommentVote {
 //   Post        Post[]
 //   Comment     Comment[]
 //   CommentVote CommentVote[]
-//   joinevent   JoinEvent[]
+//   eventRegister   EventRegister[]
 //   vote        Vote[]
 // }
 
