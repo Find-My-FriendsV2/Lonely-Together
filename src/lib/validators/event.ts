@@ -5,7 +5,7 @@ export const EventValidator = z.object({
 })
 
 export const JoinEventValidator = z.object({
-    EventId: z.string()
+    eventId: z.string()
 })
 
 export type CreateEventPayload = z.infer<typeof EventValidator>
