@@ -39,7 +39,7 @@ const Layout = async ({
             },
         });
 
-    const isJoinEvent = !!joinEvent;
+    const isJoined = !!joinEvent;
 
     const memberCount = await db.joinEvent.count({
         where: {
@@ -82,8 +82,12 @@ const Layout = async ({
                             ): null}
 
                             {event.creatorId !== session?.user.id ? (
-                                <JoinLeaveToggle/>
-                            )}
+                                <JoinLeaveToggle
+                                isJoined={isJoined}
+                                eventId={event.id}
+                                eventName={event.name}
+                                />
+                            ) : null}
                         </dl>
                     </div>
                 </div>
