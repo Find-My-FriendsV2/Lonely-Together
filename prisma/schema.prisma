@@ -56,7 +56,7 @@ model User {
   Post        Post[]
   Comment     Comment[]
   CommentVote CommentVote[]
-  eventRegister   EventRegister[]
+  joinEvent   JoinEvent[]
   // vote        Vote[]
 }
 
@@ -69,13 +69,13 @@ model Event {
 
   creatorId   String?
   Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
-  eventRegister   EventRegister[]
+  joinEvent   JoinEvent[]
 
   @@index([name])
   @@index([creatorId])
 }
 
-model EventRegister {
+model JoinEvent {
   user User @relation(fields: [userId], references: [id])
   userId String
   event Event @relation(fields: [eventId], references: [id])
