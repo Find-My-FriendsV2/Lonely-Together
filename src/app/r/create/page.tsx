@@ -5,20 +5,57 @@ import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import {useRouter} from 'next/navigation'
 import {useMutation} from '@tanstack/react-query'
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import{ CreateEventPayload } from'@/lib/validators/event'
+import { toast } from '@/hooks/use-toast'
+import { useCustomToasts } from "@/hooks/use-custom-toast"
+
+
+
+
 const Page = () => {
 const [input, setInput] = useState<string>('')
 const router = useRouter();
-
+const { loginToast } = useCustomToasts()
 const {mutate: createEvent, isLoading} = useMutation({
     mutationFn: async() => {
         const payload: CreateEventPayload = {
             name:input,
         }
-        const {data} = await axios.post('/api/Event', payload)
+        const {data} = await axios.post('/api/event', payload)
         return data as string
-    }
+    },
+    onError: (err) => {
+        if(err instanceof AxiosError){
+            if(err.response?.status === 409){
+                return toast({
+                    title:'Event already exist',
+                    description: 'Please choice different Event name',
+                    variant: 'destructive',
+                })
+            }
+            if(err.response?.status === 422){
+                return toast({
+                    title:'Invalid event name',
+                    description: 'Please choice a name between 3 and 21 charaters',
+                    variant: 'destructive',
+                })
+            }
+
+            if(err.response?.status === 401) {
+                return loginToast()
+            }
+        }
+        toast({
+            title:'There was an error',
+            description: 'Could not create an event',
+            variant: 'destructive',
+        })
+
+    },
+    onSuccess: (data) => {
+        router.push(`/r/${data}`)
+    },
 })
 
 
