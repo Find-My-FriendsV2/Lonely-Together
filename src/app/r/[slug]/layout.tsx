@@ -135,7 +135,7 @@ const Layout = async ({
       })
     : undefined;
 
-  const isJoinEvent = !!joinEvent;
+    const isJoinEvent = !!joinEvent;
 
   const memberCount = await db.joinEvent.count({
     where: {
@@ -175,15 +175,19 @@ const Layout = async ({
                 </div>
               ) : null}
 
-              {event.creatorId !== session?.user.id ? (
-                <JoinLeaveToggle isJoinEvent={isJoinEvent} />
-              ) : null}
-            </dl>
-          </div>
+                            {event.creatorId !== session?.user.id ? (
+                                <JoinLeaveToggle
+                                isJoined={isJoined}
+                                eventId={event.id}
+                                eventName={event.name}
+                                />
+                            ) : null}
+                        </dl>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Layout;
