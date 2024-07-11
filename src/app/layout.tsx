@@ -30,8 +30,8 @@ export default function RootLayout({
     >
       <body className="min-h-screen pt-12 bg-slate-50 antialiased">
   
-        <ClientQueryProvider>
-          
+        <Providers>
+          <></>
         {/* @ts-expect-error Server Component */}
         <Navbar />
         {authModal}
@@ -42,7 +42,7 @@ export default function RootLayout({
 
         <Toaster />
        
-        </ClientQueryProvider>
+        </Providers>
         
       </body>
     </html>
