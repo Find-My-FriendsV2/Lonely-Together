@@ -1,5 +1,3 @@
-
-
 import { getAuthSession } from "@/lib/auth";
 import { JoinEventValidator } from '@/lib/validators/event'
 import { db } from "@/lib/db";

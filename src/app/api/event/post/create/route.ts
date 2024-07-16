@@ -1,5 +1,3 @@
-
-
 import { getAuthSession } from "@/lib/auth";
 import { PostValidator } from '@/lib/validators/post'
 import { db } from "@/lib/db";

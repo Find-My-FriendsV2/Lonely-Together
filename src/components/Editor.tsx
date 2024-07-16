@@ -103,55 +103,33 @@ export const Editor: FC<EditorProps> = ({ eventId }) => {
             class: ImageTool,
             config: {
               uploader: {
-                //         async uploadByFile(files: File) {
-                //           try {
-                //             console.log(files); // Ensure files is an array of File objects
-                //             const res = await uploadFiles([files], );
-                //             return {
-                //               success: 1,
-                //               file: {
-                //                 url: res[0].url,
-                //               },
-                //             };
-                //           } catch (error) {
-                //             console.error("Upload error:", error);
-                //             return {
-                //               success: 0,
-                //               file: null,
-                //             };
-                //           }
-                //         },
-                //     },
-                //   },
-                // },
-                //////////////////////////
-                // async uploadByFile(file: File) {
-                //   try {
-                //     const formData = new FormData();
-                //     formData.append('file', file);
-                //     const res = await fetch('/api/upload', {
-                //       method: 'POST',
-                //       body: formData,
-                //     });
-                //     const data = await res.json();
-                //     if (!data.url) throw new Error('Invalid response from server');
-                //     return {
-                //       success: 1,
-                //       file: {
-                //         url: data.url,
-                //       },
-                //     };
-                //   } catch (error) {
-                //     console.error("Upload error:", error);
-                //     return {
-                //       success: 0,
-                //       file: null,
-                //     };
-                //   }
-                // },
-              },
+                async uploadByFile(file: File) {
+                    try {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        const res = await fetch('/api/s3-aws', {
+                            method: 'POST',
+                            body: formData,
+                        });
+                        const data = await res.json();
+                        if (!data.url) throw new Error('Invalid response from server');
+                        return {
+                            success: 1,
+                            file: {
+                                url: data.url,
+                            },
+                        };
+                    } catch (error) {
+                        console.error("Upload error:", error);
+                        return {
+                            success: 0,
+                            file: null,
+                        };
+                    }
+                },
             },
-          },
+        },
+    },
           list: List,
           code: Code,
           inlineCode: InlineCode,
