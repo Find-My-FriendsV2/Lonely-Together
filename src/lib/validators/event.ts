@@ -1,7 +1,7 @@
 import {z} from 'zod'
 
 export const EventValidator = z.object({
-    name: z.string().min(3).max(1000),
+    name: z.string().min(3).max(500),
 })
 
 export const JoinEventValidator = z.object({

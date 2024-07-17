@@ -46,7 +46,7 @@ const UserAcountNavigation: FC<UserAcountNavigationProps> = ({user}) => {
                 <Link href='/r/create'>create an event</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href='/settings'>cSettings</Link>
+                <Link href='/settings'>Settings</Link>
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
