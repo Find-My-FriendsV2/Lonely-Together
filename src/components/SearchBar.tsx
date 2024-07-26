@@ -90,7 +90,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
                   key={event.id}
                   value={event.name}>
                   <Users className='mr-2 h-4 w-4' />
-                  <a href={`/r/${event.name}`}>r/{event.name}</a>
+                  <a href={`/r/${event.name}`}>e/{event.name}</a>
                 </CommandItem>
               ))}
             </CommandGroup>

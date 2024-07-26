@@ -1,8 +1,11 @@
+// 'use client'
+
 import { FC } from "react";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import  {Editor}  from '@/components/Editor'
 import { Button } from "@/components/ui/Button";
+// import {useRouter} from 'next/navigation'
 
 interface PageProps {
   params: {
@@ -11,6 +14,7 @@ interface PageProps {
 }
 
 const page = async ({ params }: PageProps) => {
+  // const router = useRouter()
   const event = await db.event.findFirst({
     where: {
       name: params.slug,
@@ -34,7 +38,7 @@ const page = async ({ params }: PageProps) => {
 
       {/* form */}
         <Editor eventId={event.id}/>
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end"> 
         <Button type="submit" className="w-full" form="subreddit-post-form">
           Post
         </Button>

@@ -2,6 +2,10 @@ import { getAuthSession } from "@/lib/auth";
 import { JoinEventValidator } from '@/lib/validators/event'
 import { db } from "@/lib/db";
 import { z } from 'zod';
+// import { getEventSize } from "@/lib/eventLimit";
+
+
+  
 
 export async function POST(req: Request) {
     try{
@@ -11,6 +15,22 @@ export async function POST(req: Request) {
         }
         const body = await req.json()
         const { eventId } = JoinEventValidator.parse(body)
+
+        //find event 
+        const event = await db.event.findUnique({
+            where: {id : eventId},
+            include: {joinEvent: true}
+        })
+
+        if (!event) {
+            return new Response('Event not found', { status: 404 });
+        }
+
+        // User imit has been reached
+        if (event.joinEvent.length >= event.maxParticipants) {
+            return new Response('Event is full', { status: 403 });
+        }
+
 
         const eventExists = await db.joinEvent.findFirst({
             where: {
